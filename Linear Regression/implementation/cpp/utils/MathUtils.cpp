@@ -55,5 +55,5 @@ double MathUtils::calculateVariance(const DataCollection* data) {
         variance += (x - meanX) * (x - meanX);
     }
 
-    return variance / size;
+    return variance / (size - 1);
 }

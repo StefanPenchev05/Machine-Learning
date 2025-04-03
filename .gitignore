@@ -1,0 +1,22 @@
+# Ignore build files
+*.o
+*.obj
+*.exe
+*.out
+*.a
+*.so
+*.dll
+
+# Ignore compiled binary files
+main
+
+# Ignore debug files
+*.log
+*.tmp
+
+# Ignore IDE-specific files
+.vscode/
+*.code-workspace
+
+# Ignore macOS system files
+.DS_Store

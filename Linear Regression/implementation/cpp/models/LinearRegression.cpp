@@ -16,10 +16,10 @@ void LinearRegression::fit(const DataCollection* data) {
 }
 
 // Train the model using gradient descent
-void LinearRegression::train(const DataCollection* data, double learingRate, int iterations) {
+void LinearRegression::train(const DataCollection* data, double learningRate, int iterations) {
     int size = data->getSize();
     if(size == 0) {
-        std::invalid_argument("Cannot train on an empty dataset");
+        throw std::invalid_argument("Cannot train on an empty dataset");
     }
 
     for(int iter = 0; iter < iterations; iter++) {
@@ -32,6 +32,7 @@ void LinearRegression::train(const DataCollection* data, double learingRate, int
             double y = data->getDataPoint(i).second;
             double prediction = slope * x + intercept;
 
+            // Partial Der
             gradientSlope += (prediction - y) * x;
             gradientIntercept += (prediction - y);
         }
@@ -40,8 +41,8 @@ void LinearRegression::train(const DataCollection* data, double learingRate, int
         gradientIntercept /= size;
 
         // Update parameters
-        slope -= learingRate * gradientSlope;
-        intercept -= learingRate * gradientIntercept;
+        slope -= learningRate * gradientSlope;
+        intercept -= learningRate * gradientIntercept;
 
         // Lets print the progress
         if(iter % 100 == 0) {

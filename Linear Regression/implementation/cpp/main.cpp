@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+
 #include "./utils/MathUtils.h"
 #include "./data/DataCollection.h"
 #include "./models/LinearRegression.h"
@@ -75,15 +76,28 @@ int main(int argc, char* argv[]) {
 
     // Create a LinearRegression object and fit the model
     LinearRegression model;
-    model.fit(collection);
+
+    // Train the model using gradient descent
+    model.train(collection, 0.00001, 1000);
 
     // Output the equation of the best-fitting line
     std::cout << "Equation of the line: y = " << model.getSlope() << "x + " << model.getIntercept() << std::endl;
 
-    // Predict a value
-    double x = 120.0;
+    double x = 1200.0;
     double predictedY = model.predict(x);
     std::cout << "Predicted value for x = " << x << ": y = " << predictedY << std::endl;
 
+    delete collection;
     return 0;
 }
+
+
+// model.fit(collection);
+
+// // Output the equation of the best-fitting line
+// std::cout << "Equation of the line: y = " << model.getSlope() << "x + " << model.getIntercept() << std::endl;
+
+// // Predict a value
+// double x = 120.0;
+// double predictedY = model.predict(x);
+// std::cout << "Predicted value for x = " << x << ": y = " << predictedY << std::endl;

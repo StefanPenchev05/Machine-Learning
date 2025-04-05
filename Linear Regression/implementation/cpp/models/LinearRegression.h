@@ -1,5 +1,7 @@
 #pragma once
 
+#include <iostream>
+
 #include "../data/DataCollection.h"
 #include "../utils/MathUtils.h"
 
@@ -10,6 +12,9 @@ public:
 
     // Method to fit the model to the data
     void fit(const DataCollection* data);
+
+    // Train the model using gradient descent
+    void train(const DataCollection* data, double learningRate, int iterations);
 
     // Method to predict the y value for a given x
     double predict(double x) const;

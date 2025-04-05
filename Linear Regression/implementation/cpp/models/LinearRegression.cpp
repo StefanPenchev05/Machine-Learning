@@ -15,6 +15,43 @@ void LinearRegression::fit(const DataCollection* data) {
     intercept = meanY - slope * meanX;
 }
 
+// Train the model using gradient descent
+void LinearRegression::train(const DataCollection* data, double learingRate, int iterations) {
+    int size = data->getSize();
+    if(size == 0) {
+        std::invalid_argument("Cannot train on an empty dataset");
+    }
+
+    for(int iter = 0; iter < iterations; iter++) {
+        double gradientSlope = 0.0;
+        double gradientIntercept = 0.0;
+
+        // Gradient Calculations
+        for (int i = 0; i < size; i++) {
+            double x = data->getDataPoint(i).first;
+            double y = data->getDataPoint(i).second;
+            double prediction = slope * x + intercept;
+
+            gradientSlope += (prediction - y) * x;
+            gradientIntercept += (prediction - y);
+        }
+
+        gradientSlope /= size;
+        gradientIntercept /= size;
+
+        // Update parameters
+        slope -= learingRate * gradientSlope;
+        intercept -= learingRate * gradientIntercept;
+
+        // Lets print the progress
+        if(iter % 100 == 0) {
+            std::cout << "Iteration " << iter << ": Cost = "
+                      << (gradientSlope * gradientSlope + gradientIntercept * gradientIntercept) / 2
+                      << ", Slope = " << slope << ", Intercept = " << intercept << std::endl;
+        }
+    }
+}
+
 // Predict the y value for a given x
 double LinearRegression::predict(double x) const {
     return slope * x + intercept;
